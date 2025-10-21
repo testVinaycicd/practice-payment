@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-FROM python:3.12-slim AS base
+FROM python:3.11-slim AS base
 
 # ---- Security hardening & system deps (minimal) ----
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -10,7 +10,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Install build deps only if needed by your wheels; remove if pure-python
 RUN apt-get update && apt-get install -y --no-install-recommends \
-      gcc \
+      build-essential \
+      python3-dev \
+      libpcre3-dev \
+      zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user
